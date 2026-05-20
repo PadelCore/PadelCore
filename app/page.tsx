@@ -1,18 +1,156 @@
 "use client";
 
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, X, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 export default function Home() {
 
-  const [cartCount, setCartCount] = useState(0);
+  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const addToCart = (product: any) => {
+    setCartItems([...cartItems, product]);
+  };
+
+  const removeFromCart = (indexToRemove: number) => {
+    setCartItems(
+      cartItems.filter((_, index) => index !== indexToRemove)
+    );
+  };
+
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.price,
+    0
+  );
 
   return (
     <main className="min-h-screen bg-black text-white">
 
+      {/* OVERLAY */}
+
+      {cartOpen && (
+        <div
+          onClick={() => setCartOpen(false)}
+          className="fixed inset-0 z-40 bg-black/70"
+        />
+      )}
+
+      {/* CARRITO */}
+
+      <div
+        className={`fixed right-0 top-0 z-50 h-full w-[350px] transform border-l border-white/10 bg-zinc-950 p-6 transition-transform duration-300 ${
+          cartOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+
+        <div className="flex items-center justify-between">
+
+          <h2 className="text-2xl font-black">
+            Tu carrito
+          </h2>
+
+          <button
+            onClick={() => setCartOpen(false)}
+            className="rounded-full p-2 transition hover:bg-white/10"
+          >
+            <X size={24} />
+          </button>
+
+        </div>
+
+        {/* PRODUCTOS */}
+
+        <div className="mt-8 space-y-4">
+
+          {cartItems.length === 0 ? (
+
+            <p className="text-gray-400">
+              Todavía no agregaste productos.
+            </p>
+
+          ) : (
+
+            cartItems.map((item, index) => (
+
+              <div
+                key={index}
+                className="rounded-2xl border border-white/10 bg-white/5 p-4"
+              >
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex items-center gap-4">
+
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-16 w-16 rounded-xl object-cover"
+                    />
+
+                    <div>
+
+                      <h3 className="font-bold">
+                        {item.name}
+                      </h3>
+
+                      <p className="font-bold text-blue-500">
+                        ${item.price.toLocaleString()}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                  {/* ELIMINAR */}
+
+                  <button
+                    onClick={() => removeFromCart(index)}
+                    className="rounded-full p-2 text-red-500 transition hover:bg-red-500/10"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+
+                </div>
+
+              </div>
+
+            ))
+
+          )}
+
+        </div>
+
+        {/* SUBTOTAL */}
+
+        {cartItems.length > 0 && (
+
+          <div className="mt-10 border-t border-white/10 pt-6">
+
+            <div className="flex items-center justify-between">
+
+              <span className="text-lg text-gray-400">
+                Subtotal
+              </span>
+
+              <span className="text-2xl font-black text-blue-500">
+                ${subtotal.toLocaleString()}
+              </span>
+
+            </div>
+
+            <button className="mt-6 w-full rounded-2xl bg-blue-600 py-4 font-bold transition hover:bg-blue-500">
+              Finalizar compra
+            </button>
+
+          </div>
+
+        )}
+
+      </div>
+
       {/* NAVBAR */}
 
-      <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur">
+      <header className="fixed top-0 z-30 w-full border-b border-white/10 bg-black/40 backdrop-blur">
 
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-4">
 
@@ -42,12 +180,15 @@ export default function Home() {
 
             <div className="relative">
 
-              <button className="relative rounded-full border border-white/10 p-2 md:p-3 transition hover:border-blue-500 hover:bg-blue-500/10">
+              <button
+                onClick={() => setCartOpen(true)}
+                className="relative rounded-full border border-white/10 p-2 md:p-3 transition hover:border-blue-500 hover:bg-blue-500/10"
+              >
 
                 <ShoppingCart size={20} className="md:size-[22px]" />
 
                 <span className="absolute -right-2 -top-2 flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-full bg-blue-600 text-[10px] md:text-xs font-bold">
-                  {cartCount}
+                  {cartItems.length}
                 </span>
 
               </button>
@@ -86,52 +227,6 @@ export default function Home() {
 
       </section>
 
-      {/* BENEFICIOS */}
-
-      <section className="border-y border-white/10 bg-zinc-950">
-
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 md:grid-cols-3">
-
-          <div className="text-center">
-
-            <h3 className="text-xl font-bold text-blue-500">
-              Envíos a todo el país
-            </h3>
-
-            <p className="mt-2 text-gray-400">
-              Recibí tus productos rápido y seguro.
-            </p>
-
-          </div>
-
-          <div className="text-center">
-
-            <h3 className="text-xl font-bold text-blue-500">
-              Calidad Premium
-            </h3>
-
-            <p className="mt-2 text-gray-400">
-              Productos seleccionados para máximo rendimiento.
-            </p>
-
-          </div>
-
-          <div className="text-center">
-
-            <h3 className="text-xl font-bold text-blue-500">
-              Pagos Seguros
-            </h3>
-
-            <p className="mt-2 text-gray-400">
-              Comprá con Mercado Pago y tarjetas.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
       {/* PRODUCTOS */}
 
       <section className="mx-auto max-w-7xl px-6 py-20">
@@ -142,27 +237,19 @@ export default function Home() {
             Productos Destacados
           </h2>
 
-          <button className="rounded-full border border-blue-500 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base text-blue-500 transition hover:bg-blue-500 hover:text-white">
-            Ver Todo
-          </button>
-
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
 
           {/* PRODUCTO 1 */}
 
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 transition hover:-translate-y-2 hover:border-blue-500">
+          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
 
-            <div className="overflow-hidden">
-
-              <img
-                src="/grip1.jpg"
-                alt="Grip x1"
-                className="h-80 w-full object-cover transition duration-500 group-hover:scale-110"
-              />
-
-            </div>
+            <img
+              src="/grip1.jpg"
+              alt="Grip x1"
+              className="h-80 w-full object-cover"
+            />
 
             <div className="p-6">
 
@@ -181,7 +268,13 @@ export default function Home() {
                 </span>
 
                 <button
-                  onClick={() => setCartCount(cartCount + 1)}
+                  onClick={() =>
+                    addToCart({
+                      name: "Overgrip X1",
+                      price: 7999,
+                      image: "/grip1.jpg",
+                    })
+                  }
                   className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500"
                 >
                   Comprar
@@ -195,17 +288,13 @@ export default function Home() {
 
           {/* PRODUCTO 2 */}
 
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 transition hover:-translate-y-2 hover:border-blue-500">
+          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
 
-            <div className="overflow-hidden">
-
-              <img
-                src="/grip3.jpg"
-                alt="Grip x3"
-                className="h-80 w-full object-cover transition duration-500 group-hover:scale-110"
-              />
-
-            </div>
+            <img
+              src="/grip3.jpg"
+              alt="Grip x3"
+              className="h-80 w-full object-cover"
+            />
 
             <div className="p-6">
 
@@ -224,7 +313,13 @@ export default function Home() {
                 </span>
 
                 <button
-                  onClick={() => setCartCount(cartCount + 1)}
+                  onClick={() =>
+                    addToCart({
+                      name: "Overgrip X3",
+                      price: 14999,
+                      image: "/grip3.jpg",
+                    })
+                  }
                   className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500"
                 >
                   Comprar
@@ -238,17 +333,13 @@ export default function Home() {
 
           {/* PRODUCTO 3 */}
 
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 transition hover:-translate-y-2 hover:border-blue-500">
+          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
 
-            <div className="overflow-hidden">
-
-              <img
-                src="/grip6.jpg"
-                alt="Grip x6"
-                className="h-80 w-full object-cover transition duration-500 group-hover:scale-110"
-              />
-
-            </div>
+            <img
+              src="/grip6.jpg"
+              alt="Grip x6"
+              className="h-80 w-full object-cover"
+            />
 
             <div className="p-6">
 
@@ -267,7 +358,13 @@ export default function Home() {
                 </span>
 
                 <button
-                  onClick={() => setCartCount(cartCount + 1)}
+                  onClick={() =>
+                    addToCart({
+                      name: "Overgrip X6",
+                      price: 24999,
+                      image: "/grip6.jpg",
+                    })
+                  }
                   className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500"
                 >
                   Comprar
@@ -282,44 +379,6 @@ export default function Home() {
         </div>
 
       </section>
-
-      {/* FOOTER */}
-
-      <footer className="border-t border-white/10 bg-zinc-950">
-
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
-
-          <div>
-
-            <h2 className="text-3xl font-black">
-              Padel<span className="text-blue-500">Core</span>
-            </h2>
-
-            <p className="mt-2 text-gray-400">
-              Máximo agarre. Máximo rendimiento.
-            </p>
-
-          </div>
-
-          <div className="flex gap-6 text-gray-400">
-
-            <a href="#" className="hover:text-blue-500 transition">
-              Instagram
-            </a>
-
-            <a href="#" className="hover:text-blue-500 transition">
-              Contacto
-            </a>
-
-            <a href="#" className="hover:text-blue-500 transition">
-              WhatsApp
-            </a>
-
-          </div>
-
-        </div>
-
-      </footer>
 
     </main>
   );
