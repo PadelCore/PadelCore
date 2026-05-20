@@ -1,4 +1,12 @@
+"use client";
+
+import { ShoppingCart } from "lucide-react";
+import { useState } from "react";
+
 export default function Home() {
+
+  const [cartCount] = useState(0);
+
   return (
     <main className="min-h-screen bg-black text-white">
 
@@ -12,21 +20,41 @@ export default function Home() {
             Padel<span className="text-blue-500">Core</span>
           </h1>
 
-          <nav className="hidden gap-8 md:flex">
+          <div className="flex items-center gap-6">
 
-            <a href="#" className="text-gray-300 hover:text-blue-500 transition">
-              Inicio
-            </a>
+            <nav className="hidden gap-8 md:flex">
 
-            <a href="#" className="text-gray-300 hover:text-blue-500 transition">
-              Productos
-            </a>
+              <a href="#" className="text-gray-300 hover:text-blue-500 transition">
+                Inicio
+              </a>
 
-            <a href="#" className="text-gray-300 hover:text-blue-500 transition">
-              Nosotros
-            </a>
+              <a href="#" className="text-gray-300 hover:text-blue-500 transition">
+                Productos
+              </a>
 
-          </nav>
+              <a href="#" className="text-gray-300 hover:text-blue-500 transition">
+                Nosotros
+              </a>
+
+            </nav>
+
+            {/* CARRITO */}
+
+            <div className="relative">
+
+              <button className="relative rounded-full border border-white/10 p-3 transition hover:border-blue-500 hover:bg-blue-500/10">
+
+                <ShoppingCart size={22} />
+
+                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold">
+                  {cartCount}
+                </span>
+
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -122,6 +150,8 @@ export default function Home() {
 
         <div className="grid gap-8 md:grid-cols-3">
 
+          {/* PRODUCTO 1 */}
+
           <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 transition hover:-translate-y-2 hover:border-blue-500">
 
             <div className="overflow-hidden">
@@ -160,6 +190,8 @@ export default function Home() {
 
           </div>
 
+          {/* PRODUCTO 2 */}
+
           <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 transition hover:-translate-y-2 hover:border-blue-500">
 
             <div className="overflow-hidden">
@@ -197,6 +229,8 @@ export default function Home() {
             </div>
 
           </div>
+
+          {/* PRODUCTO 3 */}
 
           <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 transition hover:-translate-y-2 hover:border-blue-500">
 
