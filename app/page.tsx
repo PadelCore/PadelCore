@@ -14,13 +14,13 @@ export default function Home() {
 
       <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur">
 
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-4">
 
-          <h1 className="text-3xl font-black tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-black tracking-tight">
             Padel<span className="text-blue-500">Core</span>
           </h1>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-6">
 
             <nav className="hidden gap-8 md:flex">
 
@@ -42,11 +42,11 @@ export default function Home() {
 
             <div className="relative">
 
-              <button className="relative rounded-full border border-white/10 p-3 transition hover:border-blue-500 hover:bg-blue-500/10">
+              <button className="relative rounded-full border border-white/10 p-2 md:p-3 transition hover:border-blue-500 hover:bg-blue-500/10">
 
-                <ShoppingCart size={22} />
+                <ShoppingCart size={20} className="md:size-[22px]" />
 
-                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold">
+                <span className="absolute -right-2 -top-2 flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-full bg-blue-600 text-[10px] md:text-xs font-bold">
                   {cartCount}
                 </span>
 
@@ -138,11 +138,11 @@ export default function Home() {
 
         <div className="mb-14 flex items-center justify-between">
 
-          <h2 className="text-4xl font-black">
+          <h2 className="text-3xl md:text-4xl font-black">
             Productos Destacados
           </h2>
 
-          <button className="rounded-full border border-blue-500 px-6 py-3 text-blue-500 transition hover:bg-blue-500 hover:text-white">
+          <button className="rounded-full border border-blue-500 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base text-blue-500 transition hover:bg-blue-500 hover:text-white">
             Ver Todo
           </button>
 
