@@ -32,16 +32,29 @@ export default function Home() {
 
       </header>
 
-      {/* HERO */}
+      {/* HERO DESKTOP */}
 
       <section
-        className="relative h-screen bg-cover bg-center"
+        className="relative hidden h-screen bg-cover bg-center md:block"
         style={{
           backgroundImage: "url('/banner.jpg')",
         }}
       >
 
         <div className="absolute inset-0 bg-black/40" />
+
+      </section>
+
+      {/* HERO MOBILE */}
+
+      <section
+        className="relative h-screen bg-cover bg-center md:hidden"
+        style={{
+          backgroundImage: "url('/banner-mobile.jpg')",
+        }}
+      >
+
+        <div className="absolute inset-0 bg-black/20" />
 
       </section>
 
