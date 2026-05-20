@@ -495,10 +495,10 @@ export default function Home() {
 
   <div className="flex items-center gap-4">
 
-    <img
-      src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadopago/logo__large_plus.png"
+   <img
+  src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Mercado_Pago_Logo.svg"
       alt="Mercado Pago"
-      className="h-10 object-contain"
+      className="h-14 w-auto object-contain"
     />
 
     <div>
