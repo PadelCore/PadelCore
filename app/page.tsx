@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function Home() {
 
-  const [cartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -180,7 +180,10 @@ export default function Home() {
                   $7.999
                 </span>
 
-                <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500">
+                <button
+                  onClick={() => setCartCount(cartCount + 1)}
+                  className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500"
+                >
                   Comprar
                 </button>
 
@@ -220,7 +223,10 @@ export default function Home() {
                   $14.999
                 </span>
 
-                <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500">
+                <button
+                  onClick={() => setCartCount(cartCount + 1)}
+                  className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500"
+                >
                   Comprar
                 </button>
 
@@ -260,7 +266,10 @@ export default function Home() {
                   $24.999
                 </span>
 
-                <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500">
+                <button
+                  onClick={() => setCartCount(cartCount + 1)}
+                  className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500"
+                >
                   Comprar
                 </button>
 
