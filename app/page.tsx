@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingCart, X, Trash2 } from "lucide-react";
+import { ShoppingCart, X, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 
 export default function Home() {
@@ -8,18 +8,76 @@ export default function Home() {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
 
+  // AGREGAR PRODUCTO
+
   const addToCart = (product: any) => {
-    setCartItems([...cartItems, product]);
+
+    const existingProduct = cartItems.find(
+      (item) => item.name === product.name
+    );
+
+    if (existingProduct) {
+
+      setCartItems(
+        cartItems.map((item) =>
+          item.name === product.name
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+
+    } else {
+
+      setCartItems([
+        ...cartItems,
+        { ...product, quantity: 1 },
+      ]);
+
+    }
+
   };
 
-  const removeFromCart = (indexToRemove: number) => {
+  // SUMAR CANTIDAD
+
+  const increaseQuantity = (name: string) => {
+
     setCartItems(
-      cartItems.filter((_, index) => index !== indexToRemove)
+      cartItems.map((item) =>
+        item.name === name
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
     );
+
   };
+
+  // RESTAR CANTIDAD
+
+  const decreaseQuantity = (name: string) => {
+
+    const updatedItems = cartItems
+      .map((item) =>
+        item.name === name
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter((item) => item.quantity > 0);
+
+    setCartItems(updatedItems);
+
+  };
+
+  // CONTADOR TOTAL
+
+  const totalItems = cartItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
+
+  // SUBTOTAL
 
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price,
+    (acc, item) => acc + item.price * item.quantity,
     0
   );
 
@@ -77,38 +135,49 @@ export default function Home() {
                 className="rounded-2xl border border-white/10 bg-white/5 p-4"
               >
 
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
 
-                  <div className="flex items-center gap-4">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-16 w-16 rounded-xl object-cover"
+                  />
 
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-16 w-16 rounded-xl object-cover"
-                    />
+                  <div className="flex-1">
 
-                    <div>
+                    <h3 className="font-bold">
+                      {item.name}
+                    </h3>
 
-                      <h3 className="font-bold">
-                        {item.name}
-                      </h3>
+                    <p className="font-bold text-blue-500">
+                      ${(item.price * item.quantity).toLocaleString()}
+                    </p>
 
-                      <p className="font-bold text-blue-500">
-                        ${item.price.toLocaleString()}
-                      </p>
+                    {/* CONTROLES */}
+
+                    <div className="mt-3 flex items-center gap-3">
+
+                      <button
+                        onClick={() => decreaseQuantity(item.name)}
+                        className="rounded-full bg-white/10 p-2 transition hover:bg-white/20"
+                      >
+                        <Minus size={16} />
+                      </button>
+
+                      <span className="font-bold">
+                        {item.quantity}
+                      </span>
+
+                      <button
+                        onClick={() => increaseQuantity(item.name)}
+                        className="rounded-full bg-white/10 p-2 transition hover:bg-white/20"
+                      >
+                        <Plus size={16} />
+                      </button>
 
                     </div>
 
                   </div>
-
-                  {/* ELIMINAR */}
-
-                  <button
-                    onClick={() => removeFromCart(index)}
-                    className="rounded-full p-2 text-red-500 transition hover:bg-red-500/10"
-                  >
-                    <Trash2 size={18} />
-                  </button>
 
                 </div>
 
@@ -158,55 +227,30 @@ export default function Home() {
             Padel<span className="text-blue-500">Core</span>
           </h1>
 
-          <div className="flex items-center gap-3 md:gap-6">
+          <button
+            onClick={() => setCartOpen(true)}
+            className="relative rounded-full border border-white/10 p-2 md:p-3 transition hover:border-blue-500 hover:bg-blue-500/10"
+          >
 
-            <nav className="hidden gap-8 md:flex">
+            <ShoppingCart size={20} className="md:size-[22px]" />
 
-              <a href="#" className="text-gray-300 hover:text-blue-500 transition">
-                Inicio
-              </a>
+            <span className="absolute -right-2 -top-2 flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-full bg-blue-600 text-[10px] md:text-xs font-bold">
+              {totalItems}
+            </span>
 
-              <a href="#" className="text-gray-300 hover:text-blue-500 transition">
-                Productos
-              </a>
-
-              <a href="#" className="text-gray-300 hover:text-blue-500 transition">
-                Nosotros
-              </a>
-
-            </nav>
-
-            {/* CARRITO */}
-
-            <div className="relative">
-
-              <button
-                onClick={() => setCartOpen(true)}
-                className="relative rounded-full border border-white/10 p-2 md:p-3 transition hover:border-blue-500 hover:bg-blue-500/10"
-              >
-
-                <ShoppingCart size={20} className="md:size-[22px]" />
-
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-full bg-blue-600 text-[10px] md:text-xs font-bold">
-                  {cartItems.length}
-                </span>
-
-              </button>
-
-            </div>
-
-          </div>
+          </button>
 
         </div>
 
       </header>
 
-      {/* HERO DESKTOP */}
+      {/* HERO */}
 
       <section
-        className="relative hidden h-screen bg-cover bg-center md:block"
+        className="relative h-screen bg-cover bg-center"
         style={{
-          backgroundImage: "url('/banner.jpg')",
+          backgroundImage:
+            "url('/banner.jpg')",
         }}
       >
 
@@ -214,41 +258,24 @@ export default function Home() {
 
       </section>
 
-      {/* HERO MOBILE */}
-
-      <section
-        className="relative h-screen bg-cover bg-center md:hidden"
-        style={{
-          backgroundImage: "url('/banner-mobile.jpg')",
-        }}
-      >
-
-        <div className="absolute inset-0 bg-black/10" />
-
-      </section>
-
       {/* PRODUCTOS */}
 
       <section className="mx-auto max-w-7xl px-6 py-20">
 
-        <div className="mb-14 flex items-center justify-between">
-
-          <h2 className="text-3xl md:text-4xl font-black">
-            Productos Destacados
-          </h2>
-
-        </div>
+        <h2 className="mb-14 text-3xl md:text-4xl font-black">
+          Productos Destacados
+        </h2>
 
         <div className="grid gap-8 md:grid-cols-3">
 
           {/* PRODUCTO 1 */}
 
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
+          <div className="rounded-3xl border border-white/10 bg-zinc-900">
 
             <img
               src="/grip1.jpg"
               alt="Grip x1"
-              className="h-80 w-full object-cover"
+              className="h-80 w-full rounded-t-3xl object-cover"
             />
 
             <div className="p-6">
@@ -288,12 +315,12 @@ export default function Home() {
 
           {/* PRODUCTO 2 */}
 
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
+          <div className="rounded-3xl border border-white/10 bg-zinc-900">
 
             <img
               src="/grip3.jpg"
               alt="Grip x3"
-              className="h-80 w-full object-cover"
+              className="h-80 w-full rounded-t-3xl object-cover"
             />
 
             <div className="p-6">
@@ -333,12 +360,12 @@ export default function Home() {
 
           {/* PRODUCTO 3 */}
 
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
+          <div className="rounded-3xl border border-white/10 bg-zinc-900">
 
             <img
               src="/grip6.jpg"
               alt="Grip x6"
-              className="h-80 w-full object-cover"
+              className="h-80 w-full rounded-t-3xl object-cover"
             />
 
             <div className="p-6">
