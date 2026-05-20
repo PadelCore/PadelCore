@@ -516,9 +516,35 @@ export default function Home() {
                         Volver
                       </button>
 
-                      <button className="w-full rounded-2xl bg-blue-600 py-4 font-bold transition hover:bg-blue-500">
-                        Confirmar compra
-                      </button>
+                     <button
+  onClick={async () => {
+
+    const response = await fetch("/api/create-preference", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        items: cartItems.map((item) => ({
+          title: item.name,
+          quantity: item.quantity,
+         unit_price: Number(item.price),
+        })),
+      }),
+    });
+
+    const data = await response.json();
+
+    window.location.href =
+      `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${data.id}`;
+
+  }}
+  className="w-full rounded-2xl bg-blue-600 py-4 font-bold transition hover:bg-blue-500"
+>
+  Confirmar compra
+</button>
 
                     </div>
 
