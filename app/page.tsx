@@ -488,24 +488,50 @@ export default function Home() {
                   <>
 
                     <h2 className="mb-8 text-3xl font-black">
-                      Método de pago
-                    </h2>
+  Pago seguro
+</h2>
 
-                    <div className="grid gap-5">
+<div className="rounded-3xl border border-blue-500/20 bg-zinc-950 p-8">
 
-                      <button className="rounded-2xl border border-white/10 bg-black p-5 text-left transition hover:border-blue-500">
-                        Mercado Pago
-                      </button>
+  <div className="flex items-center gap-4">
 
-                      <button className="rounded-2xl border border-white/10 bg-black p-5 text-left transition hover:border-blue-500">
-                        Tarjeta de crédito / débito
-                      </button>
+    <img
+      src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadopago/logo__large_plus.png"
+      alt="Mercado Pago"
+      className="h-10 object-contain"
+    />
 
-                      <button className="rounded-2xl border border-white/10 bg-black p-5 text-left transition hover:border-blue-500">
-                        Transferencia bancaria
-                      </button>
+    <div>
 
-                    </div>
+      <h3 className="text-xl font-bold">
+        Mercado Pago
+      </h3>
+
+      <p className="mt-1 text-gray-400">
+        Pagá con tarjetas, saldo en cuenta, transferencia o cuotas.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div className="mt-8 space-y-3 text-gray-300">
+
+    <p>
+      ✅ Compra protegida
+    </p>
+
+    <p>
+      ✅ Pagos 100% seguros
+    </p>
+
+    <p>
+      ✅ Acepta todas las tarjetas
+    </p>
+
+  </div>
+
+</div>
 
                     <div className="mt-8 flex gap-4">
 
