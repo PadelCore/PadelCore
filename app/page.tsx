@@ -392,7 +392,7 @@ export default function Home() {
 
             </div>
 
-            <div className="grid gap-10 lg:grid-cols-2">
+           <div className="grid items-start gap-12 xl:grid-cols-[1.2fr_0.8fr]">
 
               {/* FORM */}
 
@@ -487,47 +487,64 @@ export default function Home() {
 
                   <>
 
-                    <h2 className="mb-8 text-3xl font-black">
+<h2 className="mb-8 text-6xl font-black">
   Pago seguro
 </h2>
 
-<div className="rounded-3xl border border-blue-500/20 bg-zinc-950 p-8">
+<div className="overflow-hidden rounded-[32px] border border-blue-500/40 bg-[#050505] shadow-2xl">
 
-  <div className="flex items-center gap-4">
+  <div className="border-b border-white/10 px-10 py-12">
 
-   <img
-  src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Mercado_Pago_Logo.svg"
-      alt="Mercado Pago"
-      className="h-14 w-auto object-contain"
-    />
+    <div className="flex items-center gap-8">
 
-    <div>
+      <div className="flex-1">
 
-      <h3 className="text-xl font-bold">
-        Mercado Pago
-      </h3>
+        <h3 className="text-3xl font-black text-white">
+          Mercado Pago
+        </h3>
 
-      <p className="mt-1 text-gray-400">
-        Pagá con tarjetas, saldo en cuenta, transferencia o cuotas.
-      </p>
+        <p className="mt-3 text-2xl leading-relaxed text-gray-300">
+          Pagá con tarjetas, saldo en cuenta,
+          transferencia o cuotas.
+        </p>
+
+      </div>
 
     </div>
 
   </div>
 
-  <div className="mt-8 space-y-3 text-gray-300">
+  <div className="space-y-5 p-8 text-lg text-gray-200">
 
-    <p>
-      ✅ Compra protegida
-    </p>
+    <div className="flex items-center gap-4">
+      <span className="text-2xl">
+        ✅
+      </span>
 
-    <p>
-      ✅ Pagos 100% seguros
-    </p>
+      <span>
+        Compra protegida
+      </span>
+    </div>
 
-    <p>
-      ✅ Acepta todas las tarjetas
-    </p>
+    <div className="flex items-center gap-4">
+      <span className="text-2xl">
+        ✅
+      </span>
+
+      <span>
+        Pagos 100% seguros
+      </span>
+    </div>
+
+    <div className="flex items-center gap-4">
+      <span className="text-2xl">
+        ✅
+      </span>
+
+      <span>
+        Acepta todas las tarjetas
+      </span>
+    </div>
 
   </div>
 
