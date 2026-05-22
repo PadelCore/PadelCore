@@ -1,49 +1,61 @@
-import { MercadoPagoConfig, Preference } from "mercadopago";
-import { NextResponse } from "next/server";
+  import { MercadoPagoConfig, Preference } from "mercadopago";
+  import { NextResponse } from "next/server";
 
-const client = new MercadoPagoConfig({
-  accessToken: process.env.MP_ACCESS_TOKEN!,
-});
+  import { supabase } from "@/app/lib/supabase";
 
-export async function POST(req: Request) {
+  const client = new MercadoPagoConfig({
+    accessToken: process.env.MP_ACCESS_TOKEN!,
+  });
 
-  try {
+  export async function POST(req: Request) {
 
-    const body = await req.json();
+    try {
 
-    const preference = new Preference(client);
+      const body = await req.json();
 
-    const result = await preference.create({
-      body: {
-        items: body.items,
+      const preference = new Preference(client);
 
-        back_urls: {
-          success: "https://google.com",
-          failure: "https://google.com",
-          pending: "https://google.com",
+    await supabase.from("orders").insert([
+    {
+      customer_name: body.customer_name,
+      customer_email: body.customer_email,
+      customer_phone: body.customer_phone,
+      total: body.total,
+      status: "pending",
+    },
+  ]);
+    
+      const result = await preference.create({
+        body: {
+          items: body.items,
+
+          back_urls: {
+            success: "https://google.com",
+            failure: "https://google.com",
+            pending: "https://google.com",
+          },
+
+          auto_return: "approved",
         },
+      });
 
-        auto_return: "approved",
-      },
-    });
+      return NextResponse.json({
+        id: result.id,
+      });
 
-    return NextResponse.json({
-      id: result.id,
-    });
+    } catch (error) {
 
-  } catch (error) {
+      console.log(error);
 
-    console.log(error);
+      return NextResponse.json(
+        {
+          error: "Error creando preferencia",
+        },
+        {
+          status: 500,
+        }
+      );
 
-    return NextResponse.json(
-      {
-        error: "Error creando preferencia",
-      },
-      {
-        status: 500,
-      }
-    );
+    }
 
   }
-
-}

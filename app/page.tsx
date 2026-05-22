@@ -913,10 +913,128 @@ export default function Home() {
 
           </section>
 
+          {/* REVIEWS */}
+
+          <section className="border-t border-white/10 bg-zinc-950 px-6 py-24">
+
+            <div className="mx-auto max-w-7xl">
+
+              <div className="mb-16 text-center">
+
+                <p className="mb-4 font-bold uppercase tracking-[0.3em] text-blue-500">
+                  Opiniones reales
+                </p>
+
+                <h2 className="text-4xl font-black md:text-5xl">
+                  Lo que dicen nuestros clientes
+                </h2>
+
+              </div>
+
+            </div>
+
+<div className="grid gap-8 md:grid-cols-3">
+
+  <div className="rounded-3xl border border-white/10 bg-black p-8">
+
+    <div className="mb-6 text-3xl">
+      ⭐⭐⭐⭐⭐
+    </div>
+
+    <p className="text-lg leading-relaxed text-gray-300">
+      “Excelente agarre y muchísima comodidad.
+      Se sienten premium.”
+    </p>
+
+    <div className="mt-8">
+
+      <h3 className="font-bold">
+        Lucas M.
+      </h3>
+
+      <p className="text-sm text-gray-500">
+        Jugador amateur
+      </p>
+
+    </div>
+
+  </div>
+
+  <div className="rounded-3xl border border-white/10 bg-black p-8">
+
+    <div className="mb-6 text-3xl">
+      ⭐⭐⭐⭐⭐
+    </div>
+
+    <p className="text-lg leading-relaxed text-gray-300">
+      “Muy buena calidad. El envío llegó rápido
+      y el grip dura muchísimo.”
+    </p>
+
+    <div className="mt-8">
+
+      <h3 className="font-bold">
+        Martín R.
+      </h3>
+
+      <p className="text-sm text-gray-500">
+        Competidor federado
+      </p>
+
+    </div>
+
+  </div>
+
+  <div className="rounded-3xl border border-white/10 bg-black p-8">
+
+    <div className="mb-6 text-3xl">
+      ⭐⭐⭐⭐⭐
+    </div>
+
+    <p className="text-lg leading-relaxed text-gray-300">
+      “El mejor overgrip que probé hasta ahora.
+      Muy recomendado.”
+    </p>
+
+    <div className="mt-8">
+
+      <h3 className="font-bold">
+        Sofía G.
+      </h3>
+
+      <p className="text-sm text-gray-500">
+        Jugadora intermedia
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+          </section>
+
         </main>
 
       )}
 
+
+
+<a
+  href="https://wa.me/5493446411749?text=Hola!%20Quiero%20consultar%20por%20los%20productos%20de%20PadelCore."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full bg-green-500 px-6 py-4 font-bold text-white shadow-2xl transition hover:scale-105 hover:bg-green-400"
+>
+
+  <span className="text-2xl">
+    💬
+  </span>
+
+  WhatsApp
+
+</a>
+    
     </>
 
   );
